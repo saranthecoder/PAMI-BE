@@ -1,3 +1,4 @@
+// Created for Authentication
 import  jwt from "jsonwebtoken";
 import Admin from "../models/user.model.js";
 
