@@ -27,6 +27,6 @@ app.use('/api/user', router);
 app.use('/api/pami', pami);
 
 app.listen(PORT, () => {
-    // connectToMongoDB();
+    connectToMongoDB();
     console.log(`Server is running in port ${PORT}`);
 })
