@@ -1,3 +1,4 @@
+// Created to generate token
 import jwt from 'jsonwebtoken';
 
 const generateTokenSetCookie = (userId, res) => {
