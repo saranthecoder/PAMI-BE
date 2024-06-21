@@ -12,15 +12,18 @@ const scriptDir = path.dirname(process.argv[1]);
 
 router.post("/upload", upload.single("csvFile"), (req, res) => {
   const file = req.file;
-  const algorithms = req.body.algorithms;
+  const { scriptPath }= req.body;
 
   // Check if the required parameters are provided
-  if (!file || !algorithms) {
-    return res.status(400).send("Please provide both the CSV file and algorithms.");
+  if (!file || !scriptPath ) {
+    return res.status(400).send("Please provide the CSV file, script path, and algorithms.");
   }
 
+  // Resolve the script path to an absolute path
+  const resolvedScriptPath = path.resolve(scriptPath);
+
   // Spawn a Python child process
-  const pythonProcess = spawn('python', ['script.py', file.path, algorithms]);
+  const pythonProcess = spawn('python', [resolvedScriptPath, file.path]);
   
   let result = '';
 
@@ -39,9 +42,12 @@ router.post("/upload", upload.single("csvFile"), (req, res) => {
   });
 });
 
-router.get('/get-image', (req, res) => {
+
+router.get('/get-image/:imageName', (req, res) => {
+  const { imageName } = req.params;
   const scriptDir = path.resolve();
-  const imagePath = path.join(scriptDir, 'graph.png');
+  const resultsDir = path.join(scriptDir, 'src','GRAPHS');
+  const imagePath = path.join(resultsDir, imageName);
 
   // Check if the image exists
   if (!fs.existsSync(imagePath)) {
@@ -62,6 +68,19 @@ router.get('/get-image', (req, res) => {
         // Send the converted image to the client
         res.contentType('image/jpeg');
         res.send(jpegData);
+
+        
+
+        // Delete the image file after sending
+        /*
+        fs.unlink(imagePath, (unlinkErr) => {
+          if (unlinkErr) {
+            console.error(`Error deleting image file: ${unlinkErr}`);
+          }
+        });
+        */
+
+
       })
       .catch((conversionErr) => {
         console.error("Error converting image:", conversionErr);
@@ -69,5 +88,6 @@ router.get('/get-image', (req, res) => {
       });
   });
 });
+
 
 export default router;

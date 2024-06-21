@@ -5,7 +5,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 
 import router from './src/router/user.routes.js';
-import pami from './pami.js';
+import pami from './src/PAMI/pami.js';
 import connectToMongoDB from './src/db/connectToMongoDB.js';
 
 dotenv.config();
@@ -27,6 +27,6 @@ app.use('/api/user', router);
 app.use('/api/pami', pami);
 
 app.listen(PORT, () => {
-    connectToMongoDB();
+    // connectToMongoDB();
     console.log(`Server is running in port ${PORT}`);
 })
