@@ -1,4 +1,4 @@
 node_modules
 .env
 deploy.txt
-src\GRAPHS
+src/GRAPHS/
