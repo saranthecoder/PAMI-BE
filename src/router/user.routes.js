@@ -12,9 +12,9 @@ router.post('/loginUser', logInUser);  // ✅
 
 router.get('/logoutUser', logOutUser);  // ✅
 
-router.get('/getModules', getModules); 
+//router.get('/getModules', getModules); 
 
-router.post('/getAlgorithms', getAlgorithms); 
+router.get('/getAlgorithms', getAlgorithms); 
 
 
 export default router;
