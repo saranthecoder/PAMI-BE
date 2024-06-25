@@ -12,7 +12,7 @@ router.post('/loginUser', logInUser);  // ✅
 
 router.get('/logoutUser', logOutUser);  // ✅
 
-//router.get('/getModules', getModules); 
+
 
 router.get('/getAlgorithms', getAlgorithms); 
 
